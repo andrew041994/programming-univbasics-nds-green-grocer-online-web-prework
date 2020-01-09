@@ -16,7 +16,24 @@ def consolidate_cart(cart)
   #
   # REMEMBER: This returns a new Array that represents the cart. Don't merely
   # change `cart` (i.e. mutate) it. It's easier to return a new thing.
-  pp cart
+  new_cart=[]
+  i=0
+  while i<cart.size
+    new_cart_item = find_item_by_name_in_collection(cart[i][:item], new_cart)
+    if new_cart_item != nil
+      new_cart_item[:count] += 1
+    else
+      new_cart_item = {
+        :item => cart[i][:item],
+        :price => cart[i][:price],
+        :clearance => cart[i][:clearance],
+        :count =>
+      }
+      new_cart<<new_cart_item      
+    end    
+    i+=1
+  end
+  new_cart
 end
 
 def apply_coupons(cart, coupons)
